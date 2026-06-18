@@ -1,77 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Black Concierge | Menu Executivo</title>
     <style>
         :root {
-            --bg-main: #000000;
-            --bg-card: #121214;
-            --bg-input: #1c1c1f;
-            --gold: #d4af37;
-            --text-white: #ffffff;
-            --text-muted: #a1a1aa;
-            --border-subtle: #27272a;
+            --bg-main: #000000; --bg-card: #121214; --bg-input: #1c1c1f;
+            --gold: #d4af37; --text-white: #ffffff; --text-muted: #a1a1aa; --border-subtle: #27272a;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg-main); color: var(--text-white); display: flex; justify-content: center; }
-
-        .app-container { width: 100%; max-width: 480px; min-height: 100vh; position: relative; padding-bottom: 120px; background: var(--bg-main); }
-
-        /* Header Premium */
+        .app-container { width: 100%; max-width: 480px; min-height: 100vh; position: relative; padding-bottom: 120px; }
         header { padding: 20px; text-align: center; background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0) 100%); }
-        header h1 { font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
-        header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-
-        /* Banner de Anúncio Rotativo Premium */
+        header h1 { font-size: 20px; font-weight: 800; text-transform: uppercase; color: var(--gold); }
+        header p { font-size: 12px; color: var(--text-muted); }
         .ad-container { padding: 0 20px; margin-bottom: 20px; }
-        .promo-banner {
-            width: 100%; height: 110px; border-radius: 16px; overflow: hidden; position: relative;
-            background: var(--bg-card); border: 1px solid var(--border-subtle);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
-        }
+        .promo-banner { width: 100%; height: 110px; border-radius: 16px; overflow: hidden; position: relative; background: var(--bg-card); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; }
         .promo-banner img { width: 100%; height: 100%; object-fit: cover; animation: slowZoom 6s infinite alternate; }
-        .ad-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: var(--gold); padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: bold; letter-spacing: 1px; backdrop-filter: blur(4px); }
+        .ad-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: var(--gold); padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: bold; }
         @keyframes slowZoom { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
-
         .content { padding: 0 20px; }
-
-        /* Dados de Cadastro do Cliente */
         .vip-inputs { display: grid; gap: 12px; margin-bottom: 24px; }
         .input-box { background: var(--bg-input); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 12px 16px; }
         .input-box label { font-size: 11px; color: var(--gold); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px; }
         .input-box input { width: 100%; background: transparent; border: none; color: var(--text-white); font-size: 15px; outline: none; }
         .input-box:focus-within { border-color: var(--gold); }
-
-        /* Categorias & Grid de Produtos */
         .category-title { font-size: 16px; font-weight: 700; color: var(--text-white); margin: 24px 0 12px 0; display: flex; align-items: center; gap: 8px; }
         .category-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--gold); border-radius: 4px; }
-        
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        
         .card { background: var(--bg-card); border-radius: 16px; padding: 14px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
         .card.active { border-color: var(--gold); background: rgba(212,175,55,0.05); }
-        .card-info h3 { font-size: 14px; font-weight: 600; color: var(--text-white); margin-bottom: 4px; line-height: 1.2; height: 34px; }
+        .card-info h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; height: 34px; }
         .card-info p { font-size: 15px; font-weight: 700; color: var(--gold); }
-        
-        /* Controles de Quantidade */
         .qty-controls { display: flex; justify-content: space-between; align-items: center; background: var(--bg-input); border-radius: 10px; margin-top: 12px; padding: 4px; }
         .qty-btn { width: 32px; height: 32px; border: none; background: transparent; color: var(--text-white); font-size: 20px; font-weight: 300; cursor: pointer; border-radius: 8px; }
-        .qty-btn:active { background: rgba(255,255,255,0.1); }
         .qty-display { width: 30px; text-align: center; border: none; background: transparent; color: var(--text-white); font-weight: 700; font-size: 16px; pointer-events: none; }
-
-        /* Barra de Finalização Fixa */
         .checkout-bar { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: rgba(18,18,20,0.95); backdrop-filter: blur(10px); padding: 16px 20px 24px 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; z-index: 10; }
         .checkout-total { display: flex; flex-direction: column; }
         .checkout-total span { font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
         .checkout-total strong { font-size: 22px; color: var(--text-white); }
-        .checkout-btn { background: var(--gold); color: black; border: none; padding: 14px 24px; border-radius: 12px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(212,175,55,0.2); }
-        .checkout-btn:active { transform: scale(0.95); }
-
-        /* Modal de Sucesso */
+        .checkout-btn { background: var(--gold); color: black; border: none; padding: 14px 24px; border-radius: 12px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.2); }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: var(--bg-card); border: 1px solid var(--gold); border-radius: 20px; padding: 30px; text-align: center; width: 100%; max-width: 340px; }
         .modal-content h2 { color: var(--gold); margin-bottom: 8px; font-size: 22px; }
@@ -82,172 +51,119 @@
 <body>
 
 <div class="app-container">
-    <header>
-        <h1>Black Concierge</h1>
-        <p>Serviço de Bordo Exclusivo</p>
-    </header>
+    <header><h1>Black Concierge</h1><p>Serviço de Bordo Exclusivo</p></header>
 
     <div class="ad-container">
         <div class="promo-banner">
             <span class="ad-badge">VIP OFFER</span>
-            <img src="anuncio.jpg" alt="Anúncio Parceiro" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'ad-badge\'>RESERVADO</span><div style=\'color:var(--gold); font-size:12px; font-weight:bold; letter-spacing:2px;\'>ESPAÇO PUBLICITÁRIO</div>'">
+            <img src="anuncio.jpg" alt="Anúncio" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'ad-badge\'>RESERVADO</span><div style=\'color:var(--gold); font-size:12px; font-weight:bold; letter-spacing:2px;\'>ESPAÇO PUBLICITÁRIO</div>'">
         </div>
     </div>
 
     <div class="content">
-        <form action="https://docs.google.com/forms/d/e/1FAIpQLSe2vJZHdupTEnSoTJiUDQLyaEA4Laa7g0ShZUqRSLdphuvzwQ/formResponse" method="POST" target="hidden_iframe" onsubmit="validarEEnviar(event)">
-            
-            <div class="vip-inputs">
-                <div class="input-box">
-                    <label>Endereço de Entrega</label>
-                    <input type="text" name="entry.1252470140" placeholder="Insira o local exato" required>
-                </div>
-                <div class="input-box">
-                    <label>ID Cartão Black</label>
-                    <input type="text" name="entry.398320415" placeholder="Sua credencial" required>
-                </div>
-                <div class="input-box">
-                    <label>WhatsApp do Cliente</label>
-                    <input type="tel" name="entry.whatsapp_id" id="whatsappInput" placeholder="(00) 00000-0000" maxlength="15" required>
-                </div>
-            </div>
+        <div class="vip-inputs">
+            <div class="input-box"><label>Nome Completo</label><input type="text" id="uiNome" placeholder="Seu nome" required></div>
+            <div class="input-box"><label>Endereço de Entrega</label><input type="text" id="uiEnd" placeholder="Local exato" required></div>
+            <div class="input-box"><label>ID Cartão Black</label><input type="text" id="uiCartao" placeholder="Sua credencial" required></div>
+            <div class="input-box"><label>WhatsApp</label><input type="tel" id="uiWhats" placeholder="(00) 00000-0000" maxlength="15" required></div>
+        </div>
 
-            <div id="catalog-container"></div>
+        <div id="catalog-container"></div>
 
-            <div class="checkout-bar">
-                <div class="checkout-total">
-                    <span>Total do Pedido</span>
-                    <strong id="totalDisplay">R$ 0,00</strong>
-                </div>
-                <button type="submit" class="checkout-btn">Finalizar</button>
-            </div>
-        </form>
+        <div class="checkout-bar">
+            <div class="checkout-total"><span>Total</span><strong id="totalDisplay">R$ 0,00</strong></div>
+            <button type="button" class="checkout-btn" onclick="processarPedido()">Finalizar</button>
+        </div>
     </div>
 </div>
+
+<form id="formGoogle" action="https://docs.google.com/forms/d/e/1FAIpQLSe2vJZHdupTEnSoTJiUDQLyaEA4Laa7g0ShZUqRSLdphuvzwQ/formResponse" method="POST" target="hidden_iframe" style="display:none;">
+    <input type="text" name="entry.ID_DO_NOME" id="hiddenNome">
+    <input type="text" name="entry.ID_DO_WHATSAPP" id="hiddenWhats">
+    <input type="text" name="entry.ID_DO_ENDERECO" id="hiddenEnd">
+    <input type="text" name="entry.ID_DO_CARTAO" id="hiddenCartao">
+    <textarea name="entry.ID_DO_PEDIDO" id="hiddenPedido"></textarea>
+</form>
 
 <div class="modal" id="successModal">
     <div class="modal-content">
-        <h2>Pedido Processado</h2>
-        <p>Sua solicitação foi salva e sincronizada diretamente com a nossa planilha de despacho.</p>
+        <h2>Ordem Registada</h2>
+        <p>Os seus dados e o pedido completo foram sincronizados com sucesso na nossa base de dados.</p>
         <button onclick="resetOrder()">Novo Pedido</button>
     </div>
 </div>
-
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(typeof submitted !== 'undefined' && submitted) { showSuccess(); }"></iframe>
 
 <script>
     let submitted = false;
-
     const catalogo = [
-        {
-            categoria: "Bebidas Geladas",
-            itens: [
-                { id: 'entry.1882604380', name: 'Antarctica', price: 4.00 },
-                { id: 'entry.655204891', name: 'Brahma', price: 4.00 },
-                { id: 'entry.923078371', name: 'Coca-Cola', price: 4.00 },
-                { id: 'entry.guarana_id', name: 'Guaraná Antarctica', price: 4.00 } // Atualize com o id real
-            ]
-        },
-        {
-            categoria: "Doces & Refresh",
-            itens: [
-                { id: 'entry.toddynho_id', name: 'Toddynho', price: 2.00 }, // Atualize com o id real
-                { id: 'entry.suco_id', name: 'Suco Natural', price: 2.50 }, // Atualize com o id real
-                { id: 'entry.picole_id', name: 'Picolé Gourmet', price: 3.00 } // Atualize com o id real
-            ]
-        },
-        {
-            categoria: "Estética Hair (Pomadas R$ 20,00)",
-            itens: [
-                { id: 'entry.pomada_black_id', name: 'Pomada Black', price: 20.00 }, // Atualize com o id real
-                { id: 'entry.pomada_morango_id', name: 'Pomada Morango', price: 20.00 }, // Atualize com o id real
-                { id: 'entry.pomada_uva_id', name: 'Pomada Uva', price: 20.00 } // Atualize com o id real
-            ]
-        }
+        { categoria: "Bebidas", itens: [{ name: 'Antarctica', price: 4.00 }, { name: 'Brahma', price: 4.00 }, { name: 'Coca-Cola', price: 4.00 }, { name: 'Guaraná Antarctica', price: 4.00 }] },
+        { categoria: "Refresh", itens: [{ name: 'Toddynho', price: 2.00 }, { name: 'Suco Natural', price: 2.50 }, { name: 'Picolé Gourmet', price: 3.00 }] },
+        { categoria: "Pomadas", itens: [{ name: 'Pomada Black', price: 20.00 }, { name: 'Pomada Morango', price: 20.00 }, { name: 'Pomada Uva', price: 20.00 }] }
     ];
 
     const container = document.getElementById('catalog-container');
-    let allProductsFlat = [];
-    let globalIndex = 0;
+    let allProducts = []; let index = 0;
 
-    // Construtor do Catálogo Inteligente
     catalogo.forEach(sec => {
-        let sectionHtml = `<div class="category-title">${sec.categoria}</div><div class="product-grid">`;
+        let html = `<div class="category-title">${sec.categoria}</div><div class="product-grid">`;
         sec.itens.forEach(prod => {
-            allProductsFlat.push(prod);
-            sectionHtml += `
-                <div class="card" id="card-${globalIndex}">
-                    <div class="card-info">
-                        <h3>${prod.name}</h3>
-                        <p>R$ ${prod.price.toFixed(2).replace('.', ',')}</p>
-                    </div>
-                    <div class="qty-controls">
-                        <button type="button" class="qty-btn" onclick="updateQty(${globalIndex}, -1)">-</button>
-                        <input type="number" name="${prod.id}" id="input-${globalIndex}" class="qty-display" value="0" readonly>
-                        <button type="button" class="qty-btn" onclick="updateQty(${globalIndex}, 1)">+</button>
-                    </div>
-                </div>
-            `;
-            globalIndex++;
+            allProducts.push(prod);
+            html += `<div class="card" id="card-${index}"><div class="card-info"><h3>${prod.name}</h3><p>R$ ${prod.price.toFixed(2).replace('.', ',')}</p></div><div class="qty-controls"><button type="button" class="qty-btn" onclick="upd(${index}, -1)">-</button><input type="number" id="inp-${index}" class="qty-display" value="0" readonly><button type="button" class="qty-btn" onclick="upd(${index}, 1)">+</button></div></div>`;
+            index++;
         });
-        sectionHtml += `</div>`;
-        container.insertAdjacentHTML('beforeend', sectionHtml);
+        container.insertAdjacentHTML('beforeend', html + `</div>`);
     });
 
-    // Função de Controle de Quantidades
-    function updateQty(index, val) {
-        const input = document.getElementById(`input-${index}`);
-        const card = document.getElementById(`card-${index}`);
-        let current = parseInt(input.value);
-        let updated = current + val;
-        
-        if(updated >= 0) {
-            input.value = updated;
-            if(updated > 0) card.classList.add('active');
-            else card.classList.remove('active');
-            calcTotal();
-        }
+    function upd(i, val) {
+        let inp = document.getElementById(`inp-${i}`), card = document.getElementById(`card-${i}`);
+        let n = parseInt(inp.value) + val;
+        if(n >= 0) { inp.value = n; n > 0 ? card.classList.add('active') : card.classList.remove('active'); calcTotal(); }
     }
 
     function calcTotal() {
         let sum = 0;
-        allProductsFlat.forEach((prod, i) => {
-            sum += parseInt(document.getElementById(`input-${i}`).value) * prod.price;
-        });
+        allProducts.forEach((p, i) => sum += parseInt(document.getElementById(`inp-${i}`).value) * p.price);
         document.getElementById('totalDisplay').innerText = `R$ ${sum.toFixed(2).replace('.', ',')}`;
+        return sum;
     }
 
-    // Máscara de digitação em tempo real para o WhatsApp do cliente
-    document.getElementById('whatsappInput').addEventListener('input', function (e) {
+    // Máscara Whatsapp
+    document.getElementById('uiWhats').addEventListener('input', function(e) {
         let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
         e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
     });
 
-    // Validação de segurança pré-envio
-    function validarEEnviar(event) {
-        let sum = 0;
-        allProductsFlat.forEach((prod, i) => {
-            sum += parseInt(document.getElementById(`input-${i}`).value);
-        });
+    function processarPedido() {
+        const nome = document.getElementById('uiNome').value;
+        const whats = document.getElementById('uiWhats').value;
+        const end = document.getElementById('uiEnd').value;
+        const cartao = document.getElementById('uiCartao').value;
+        const total = calcTotal();
 
-        if (sum === 0) {
-            event.preventDefault(); // Cancela o envio
-            alert("Selecione pelo menos 1 item antes de finalizar!");
-            return;
-        }
-        
-        submitted = true; // Ativa o gatilho para mostrar o modal de sucesso quando o iframe carregar
+        if(!nome || !whats || !end || !cartao) { alert("Preencha todos os dados VIP!"); return; }
+        if(total === 0) { alert("Adicione produtos ao pedido!"); return; }
+
+        let resumo = "";
+        allProducts.forEach((p, i) => {
+            let qtd = parseInt(document.getElementById(`inp-${i}`).value);
+            if(qtd > 0) resumo += `${qtd}x ${p.name}\n`;
+        });
+        resumo += `\nTOTAL: R$ ${total.toFixed(2).replace('.',',')}`;
+
+        // Transfere tudo para o formulário invisível
+        document.getElementById('hiddenNome').value = nome;
+        document.getElementById('hiddenWhats').value = whats;
+        document.getElementById('hiddenEnd').value = end;
+        document.getElementById('hiddenCartao').value = cartao;
+        document.getElementById('hiddenPedido').value = resumo;
+
+        submitted = true;
+        document.getElementById('formGoogle').submit();
     }
 
     function showSuccess() { document.getElementById('successModal').style.display = 'flex'; }
-
-    function resetOrder() {
-        submitted = false;
-        document.getElementById('successModal').style.display = 'none';
-        document.querySelector('form').reset();
-        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-        calcTotal();
-    }
+    function resetOrder() { location.reload(); }
 </script>
 </body>
 </html>
