@@ -85,8 +85,8 @@
 
 <div class="app-container">
     <header>
-        <h1>Black Concierge</h1>
-        <p>Atendimento Exclusivo de Bordo</p>
+        <h1Pdidos Black Barbearia Junim</h1>
+        <p>Atendimento Exclusivo</p>
     </header>
 
     <div class="ad-container">
@@ -99,20 +99,20 @@
     <div class="content">
         <div class="vip-inputs">
             <div class="input-box">
-                <label>Nome Completo do Cliente</label>
+                <label>Apelido</label>
                 <input type="text" id="uiNome" placeholder="Digite seu nome" required>
             </div>
             <div class="input-box">
-                <label>WhatsApp Corporativo</label>
+                <label>WhatsApp</label>
                 <input type="tel" id="uiWhats" placeholder="(00) 00000-0000" maxlength="15" required>
             </div>
             <div class="input-box">
-                <label>ID do Cartão Black</label>
-                <input type="text" id="uiCartao" placeholder="Ex: BLK-4492" required>
+                <label>ID do Cartão da Barbearia</label>
+                <input type="text" id="uiCartao" placeholder="Ex: 777, 1, 2, 4" required>
             </div>
             <div class="input-box">
-                <label>Endereço de Entrega</label>
-                <input type="text" id="uiEndereco" placeholder="Rua, Número, Apto/Bloco" required>
+                <label>Endereço da Entrega</label>
+                <input type="text" id="uiEndereco" placeholder="Rua, Número," required>
             </div>
         </div>
 
@@ -139,7 +139,7 @@
 <div class="modal" id="successModal">
     <div class="modal-content">
         <h2>Solicitação Concluída!</h2>
-        <p>Sua ordem de serviço e dados cadastrais foram injetados com sucesso em nosso banco de dados principal.</p>
+        <p>Seu Pedido Foi Enviado, Ja estamos fazendo ele Olhe o Whatsapp Para atualização do status</p>
         <button onclick="reiniciarApp()">Novo Pedido</button>
     </div>
 </div>
@@ -152,24 +152,24 @@
     // Estrutura de Dados Comercial (Preços Atualizados Conforme Solicitação)
     const catalogo = [
         {
-            categoria: "Bebidas Premium (R$ 4,00)",
+            categoria: "Bebidas (R$ 4,00)",
             itens: [
                 { name: 'Cerveja Antarctica', price: 4.00 },
                 { name: 'Cerveja Brahma', price: 4.00 },
                 { name: 'Coca-Cola Zero', price: 4.00 },
-                { name: 'Guaraná Antarctica', price: 4.00 }
+                { name: 'Guarana Antarctica', price: 4.00 }
             ]
         },
         {
-            categoria: "Doces & Refresh",
+            categoria: "Bebidas Kids",
             itens: [
                 { name: 'Toddynho', price: 2.00 },
-                { name: 'Suco Natural', price: 2.50 },
-                { name: 'Picolé Gourmet', price: 3.00 }
+                { name: 'Suco', price: 2.50 },
+                { name: 'Picolé', price: 3.00 }
             ]
         },
         {
-            categoria: "Estética Hair (Pomadas R$ 20,00)",
+            categoria: "Estética (Pomadas R$ 20,00)",
             itens: [
                 { name: 'Pomada Black', price: 20.00 },
                 { name: 'Pomada Morango', price: 20.00 },
@@ -245,7 +245,7 @@
 
         // Validação de segurança de barreira
         if (!nome || !whats || !cartao || !endereco) {
-            alert("Por favor, preencha todos os campos cadastrais obrigatórios.");
+            alert("Por favor, preencha todos os campos obrigatórios.");
             return;
         }
         if (valorTotal === 0) {
