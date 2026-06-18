@@ -3,154 +3,422 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu VIP</title>
+    <title>Black Concierge | Menu Executivo</title>
     <style>
         :root {
-            --bg-color: #0d0d0d;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --accent: #ffffff;
-            --text-primary: #f2f2f2;
-            --text-secondary: #a1a1aa;
+            --bg-main: #09090b;
+            --bg-card: #141416;
+            --gold: #d4af37;
+            --gold-hover: #f3e5ab;
+            --text-white: #f4f4f5;
+            --text-muted: #71717a;
+            --border: #27272a;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
-            background-color: var(--bg-color); color: var(--text-primary);
-            display: flex; justify-content: center; padding: 20px; min-height: 100vh;
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            min-height: 100vh;
         }
 
-        .container {
-            background: var(--glass-bg); border: 1px solid var(--glass-border);
-            border-radius: 24px; padding: 30px; width: 100%; max-width: 450px;
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        .app-container {
+            width: 100%;
+            max-width: 480px; /* Perfeito para Mobile e Tablet */
+            background-color: var(--bg-card);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
         }
 
-        h2 { font-weight: 600; font-size: 24px; margin-bottom: 24px; text-align: center; letter-spacing: -0.5px; }
-
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
-        .input-group input[type="text"] {
-            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.2); color: white; font-size: 16px; outline: none; transition: 0.3s;
-        }
-        .input-group input[type="text"]:focus { border-color: var(--accent); }
-
-        .item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 0; border-bottom: 1px solid var(--glass-border);
-        }
-        .item-info h4 { font-size: 16px; font-weight: 500; }
-        .item-info p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
-
-        .counter { display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 4px 8px; }
-        .counter button {
-            background: none; border: none; color: white; font-size: 20px; width: 28px; height: 28px;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;
-        }
-        .counter button:active { opacity: 0.5; }
-        .counter input { width: 30px; text-align: center; background: none; border: none; color: white; font-size: 16px; font-weight: 600; pointer-events: none; }
-
-        .total-section {
-            margin-top: 30px; display: flex; justify-content: space-between; align-items: center;
-            font-size: 20px; font-weight: 600;
+        /* Banner de Anúncio Rotativo Premium */
+        .promo-banner {
+            width: 100%;
+            height: 140px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            border-bottom: 2px solid var(--gold);
         }
 
-        .btn-submit {
-            width: 100%; padding: 16px; margin-top: 24px; border: none; border-radius: 14px;
-            background: var(--accent); color: black; font-size: 16px; font-weight: 600;
-            cursor: pointer; transition: 0.3s;
+        .promo-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: pulseBanner 4s infinite alternate;
         }
-        .btn-submit:active { transform: scale(0.98); }
+
+        @keyframes pulseBanner {
+            0% { transform: scale(1.0); filter: brightness(0.9); }
+            100% { transform: scale(1.03); filter: brightness(1.1); }
+        }
+
+        .content {
+            padding: 20px;
+            flex-grow: 1;
+            padding-bottom: 180px; /* Espaço para o carrinho fixo */
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-white);
+        }
+
+        header p {
+            font-size: 13px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 4px;
+        }
+
+        /* Seção VIP de Inputs */
+        .vip-section {
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: white;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Grid de Produtos Estilo Menu */
+        .menu-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .item-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .item-details h3 {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-white);
+        }
+
+        .item-details p {
+            font-size: 14px;
+            color: var(--gold);
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        /* Controles do Contador Modificado para Dedos no Mobile */
+        .counter-control {
+            display: flex;
+            align-items: center;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            padding: 2px;
+        }
+
+        .counter-control button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .counter-control button:active {
+            background: var(--border);
+        }
+
+        .counter-control input {
+            width: 35px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        /* Checkout Fixo Inferior */
+        .footer-checkout {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            background: linear-gradient(to top, #09090b 80%, rgba(9,9,11,0.9));
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.7);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .total-row span {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .total-row .price {
+            font-size: 24px;
+            color: var(--text-white);
+            font-weight: 700;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold) 0%, #b8901c 100%);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+            box-shadow: none;
+        }
+
+        /* Modal de Sucesso Customizado */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: var(--bg-card);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            max-width: 360px;
+            width: 100%;
+        }
+
+        .modal-box h2 {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            color: var(--text-white);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .modal-box button {
+            background: var(--text-white);
+            color: #000;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Faça seu Pedido</h2>
+<div class="app-container">
+    
+    <div class="promo-banner">
+        <img src="anuncio.jpg" alt="Anúncio Especial" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'color:var(--gold); padding:60px 0; text-align:center; font-size:12px; letter-spacing:2px;\'>BLACK CONCIERGE PRIVÉ</div>'">
+    </div>
 
-    <!-- Substitua "SEU_LINK_DO_GOOGLE_FORMS" pela URL de resposta do seu formulário -->
-    <form action="SEU_LINK_DO_GOOGLE_FORMS" method="POST" id="orderForm">
-        
-        <div class="input-group">
-            <label>Endereço de Entrega</label>
-            <!-- Substitua "entry.111111" pelo name do input gerado no seu Google Forms -->
-            <input type="text" name="entry.111111" placeholder="Rua, Número, Bairro" required>
-        </div>
+    <div class="content">
+        <header>
+            <h1>SOLICITAÇÃO DE RESERVA</h1>
+            <p>Atendimento Exclusivo</p>
+        </header>
 
-        <div class="input-group">
-            <label>ID do Cartão Black</label>
-            <!-- Substitua "entry.222222" pelo name do input correspondente no Forms -->
-            <input type="text" name="entry.222222" placeholder="Ex: BLK-9999" required>
-        </div>
+        <form action="https://docs.google.com/forms/d/e/1FAIpQLSe2vJZHdupTEnSoTJiUDQLyaEA4Laa7g0ShZUqRSLdphuvzwQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+            
+            <div class="vip-section">
+                <div class="input-group">
+                    <label>Endereço de Entrega</label>
+                    <input type="text" name="entry.1252470140" placeholder="Rua, Número, Bloco/Apto" required>
+                </div>
+                <div class="input-group">
+                    <label>ID do Cartão Black</label>
+                    <input type="text" name="entry.398320415" placeholder="Ex: BLK-8892-XP" required>
+                </div>
+            </div>
 
-        <div id="menu-items">
-            <!-- Os itens serão gerados via JavaScript -->
-        </div>
+            <h2 class="menu-title">Bebidas e Produtos</h2>
+            <div id="menu-items">
+                </div>
 
-        <div class="total-section">
-            <span>Total</span>
-            <span id="totalValue">R$ 0,00</span>
-        </div>
-
-        <button type="submit" class="btn-submit">Finalizar Pedido</button>
-    </form>
+            <div class="footer-checkout">
+                <div class="total-row">
+                    <span>Valor Total</span>
+                    <div class="price" id="totalDisplay">R$ 0,00</div>
+                </div>
+                <button type="submit" class="submit-btn">Confirmar Pedido</button>
+            </div>
+        </form>
+    </div>
 </div>
 
+<div class="success-modal" id="successModal">
+    <div class="modal-box">
+        <h2>Pedido Transmitido!</h2>
+        <p>Seus dados e quantidades foram processados e enviados diretamente para a nossa central.</p>
+        <button onclick="resetApp()">Novo Pedido</button>
+    </div>
+</div>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(typeof submitted !== 'undefined' && submitted) { showSuccess(); }"></iframe>
+
 <script>
+    let submitted = false;
+
+    // Definição meticulosa dos itens, preços e seus respectivos IDs fornecidos no seu link
     const produtos = [
-        { id: 'entry.333333', name: 'Antártica', price: 4.00 },
-        { id: 'entry.444444', name: 'Brahma', price: 4.00 },
-        { id: 'entry.555555', name: 'Coca-Cola', price: 4.00 },
-        { id: 'entry.666666', name: 'Guaraná Antártica', price: 4.00 },
-        { id: 'entry.777777', name: 'Picolé', price: 3.00 },
-        { id: 'entry.888888', name: 'Suco', price: 2.50 },
-        { id: 'entry.999999', name: 'Toddynho', price: 2.00 },
-        { id: 'entry.000000', name: 'Pomada Modeladora', price: 35.00 } // Ajuste o valor da pomada
+        { id: 'entry.1882604380', name: 'Cerveja Antarctica', price: 4.00 },
+        { id: 'entry.655204891', name: 'Cerveja Brahma', price: 4.00 },
+        { id: 'entry.923078371', name: 'Coca-Cola', price: 4.00 },
+        // Substitua os names abaixo pelos ids reais dos outros itens se necessário
+        { id: 'entry.guarana_id', name: 'Guaraná Antarctica', price: 4.00 },
+        { id: 'entry.toddynho_id', name: 'Toddynho', price: 2.00 },
+        { id: 'entry.picole_id', name: 'Picolé Gourmet', price: 3.00 },
+        { id: 'entry.suco_id', name: 'Suco Natural', price: 2.50 },
+        { id: 'entry.pomada_id', name: 'Pomada Modeladora', price: 25.00 } // Valor sugestivo da pomada
     ];
 
-    const menuContainer = document.getElementById('menu-items');
-    const totalElement = document.getElementById('totalValue');
+    const container = document.getElementById('menu-items');
 
-    produtos.forEach((produto, index) => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'item';
-        itemDiv.innerHTML = `
-            <div class="item-info">
-                <h4>${produto.name}</h4>
-                <p>R$ ${produto.price.toFixed(2).replace('.', ',')}</p>
-            </div>
-            <div class="counter">
-                <button type="button" onclick="updateQty(${index}, -1)">-</button>
-                <input type="number" name="${produto.id}" id="qty-${index}" value="0" readonly>
-                <button type="button" onclick="updateQty(${index}, 1)">+</button>
+    // Renderiza a lista na interface de forma limpa
+    produtos.forEach((prod, index) => {
+        const itemHtml = `
+            <div class="item-card">
+                <div class="item-details">
+                    <h3>${prod.name}</h3>
+                    <p>R$ ${prod.price.toFixed(2).replace('.', ',')}</p>
+                </div>
+                <div class="counter-control">
+                    <button type="button" onclick="alterarQuantidade(${index}, -1)">-</button>
+                    <input type="number" name="${prod.id}" id="prod-${index}" value="0" readonly>
+                    <button type="button" onclick="alterarQuantidade(${index}, 1)">+</button>
+                </div>
             </div>
         `;
-        menuContainer.appendChild(itemDiv);
+        container.insertAdjacentHTML('beforeend', itemHtml);
     });
 
-    function updateQty(index, change) {
-        const input = document.getElementById(`qty-${index}`);
-        let currentQty = parseInt(input.value);
-        let newQty = currentQty + change;
-        
-        if (newQty >= 0) {
-            input.value = newQty;
-            calculateTotal();
+    function alterarQuantidade(index, valor) {
+        const input = document.getElementById(`prod-${index}`);
+        let atual = parseInt(input.value);
+        let novo = atual + valor;
+        if(novo >= 0) {
+            input.value = novo;
+            calcularTotal();
         }
     }
 
-    function calculateTotal() {
+    function calcularTotal() {
         let total = 0;
-        produtos.forEach((produto, index) => {
-            const qty = parseInt(document.getElementById(`qty-${index}`).value);
-            total += qty * produto.price;
+        produtos.forEach((prod, index) => {
+            const qtd = parseInt(document.getElementById(`prod-${index}`).value);
+            total += qtd * prod.price;
         });
-        totalElement.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        document.getElementById('totalDisplay').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+
+    function showSuccess() {
+        document.getElementById('successModal').style.display = 'flex';
+    }
+
+    function resetApp() {
+        submitted = false;
+        document.getElementById('successModal').style.display = 'none';
+        document.querySelector('form').reset();
+        calcularTotal();
     }
 </script>
-
 </body>
 </html>
