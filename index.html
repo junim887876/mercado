@@ -19,14 +19,14 @@
 
         body { background-color: var(--bg-main); color: var(--text-white); display: flex; justify-content: center; }
 
-        .app-container { width: 100%; max-width: 480px; min-height: 100vh; position: relative; padding-bottom: 100px; background: var(--bg-main); }
+        .app-container { width: 100%; max-width: 480px; min-height: 100vh; position: relative; padding-bottom: 120px; background: var(--bg-main); }
 
         /* Header Premium */
         header { padding: 20px; text-align: center; background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0) 100%); }
         header h1 { font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
         header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
-        /* Anúncio Estratégico (Não-intrusivo, parece uma oferta VIP) */
+        /* Banner de Anúncio Rotativo Premium */
         .ad-container { padding: 0 20px; margin-bottom: 20px; }
         .promo-banner {
             width: 100%; height: 110px; border-radius: 16px; overflow: hidden; position: relative;
@@ -39,7 +39,7 @@
 
         .content { padding: 0 20px; }
 
-        /* Dados do Cliente */
+        /* Dados de Cadastro do Cliente */
         .vip-inputs { display: grid; gap: 12px; margin-bottom: 24px; }
         .input-box { background: var(--bg-input); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 12px 16px; }
         .input-box label { font-size: 11px; color: var(--gold); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px; }
@@ -57,13 +57,13 @@
         .card-info h3 { font-size: 14px; font-weight: 600; color: var(--text-white); margin-bottom: 4px; line-height: 1.2; height: 34px; }
         .card-info p { font-size: 15px; font-weight: 700; color: var(--gold); }
         
-        /* Controles de Quantidade Superiores para Celular */
+        /* Controles de Quantidade */
         .qty-controls { display: flex; justify-content: space-between; align-items: center; background: var(--bg-input); border-radius: 10px; margin-top: 12px; padding: 4px; }
         .qty-btn { width: 32px; height: 32px; border: none; background: transparent; color: var(--text-white); font-size: 20px; font-weight: 300; cursor: pointer; border-radius: 8px; }
         .qty-btn:active { background: rgba(255,255,255,0.1); }
         .qty-display { width: 30px; text-align: center; border: none; background: transparent; color: var(--text-white); font-weight: 700; font-size: 16px; pointer-events: none; }
 
-        /* Checkout Fixado Embaixo */
+        /* Barra de Finalização Fixa */
         .checkout-bar { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: rgba(18,18,20,0.95); backdrop-filter: blur(10px); padding: 16px 20px 24px 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; z-index: 10; }
         .checkout-total { display: flex; flex-direction: column; }
         .checkout-total span { font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
@@ -71,7 +71,7 @@
         .checkout-btn { background: var(--gold); color: black; border: none; padding: 14px 24px; border-radius: 12px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(212,175,55,0.2); }
         .checkout-btn:active { transform: scale(0.95); }
 
-        /* Modal de Confirmação */
+        /* Modal de Sucesso */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: var(--bg-card); border: 1px solid var(--gold); border-radius: 20px; padding: 30px; text-align: center; width: 100%; max-width: 340px; }
         .modal-content h2 { color: var(--gold); margin-bottom: 8px; font-size: 22px; }
@@ -87,17 +87,15 @@
         <p>Serviço de Bordo Exclusivo</p>
     </header>
 
-    <!-- Anúncio Estratégico (Topo, Estilo App de Delivery) -->
     <div class="ad-container">
         <div class="promo-banner">
             <span class="ad-badge">VIP OFFER</span>
-            <!-- Apenas jogue o arquivo anuncio.jpg na mesma pasta -->
             <img src="anuncio.jpg" alt="Anúncio Parceiro" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'ad-badge\'>RESERVADO</span><div style=\'color:var(--gold); font-size:12px; font-weight:bold; letter-spacing:2px;\'>ESPAÇO PUBLICITÁRIO</div>'">
         </div>
     </div>
 
     <div class="content">
-        <form action="https://docs.google.com/forms/d/e/1FAIpQLSe2vJZHdupTEnSoTJiUDQLyaEA4Laa7g0ShZUqRSLdphuvzwQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+        <form action="https://docs.google.com/forms/d/e/1FAIpQLSe2vJZHdupTEnSoTJiUDQLyaEA4Laa7g0ShZUqRSLdphuvzwQ/formResponse" method="POST" target="hidden_iframe" onsubmit="validarEEnviar(event)">
             
             <div class="vip-inputs">
                 <div class="input-box">
@@ -108,9 +106,12 @@
                     <label>ID Cartão Black</label>
                     <input type="text" name="entry.398320415" placeholder="Sua credencial" required>
                 </div>
+                <div class="input-box">
+                    <label>WhatsApp do Cliente</label>
+                    <input type="tel" name="entry.whatsapp_id" id="whatsappInput" placeholder="(00) 00000-0000" maxlength="15" required>
+                </div>
             </div>
 
-            <!-- Injeção Dinâmica dos Produtos Via JS -->
             <div id="catalog-container"></div>
 
             <div class="checkout-bar">
@@ -124,11 +125,10 @@
     </div>
 </div>
 
-<!-- Modal de Sucesso -->
 <div class="modal" id="successModal">
     <div class="modal-content">
-        <h2>Ordem Recebida</h2>
-        <p>Seu pedido foi transmitido com sucesso para a central de atendimento Black Concierge.</p>
+        <h2>Pedido Processado</h2>
+        <p>Sua solicitação foi salva e sincronizada diretamente com a nossa planilha de despacho.</p>
         <button onclick="resetOrder()">Novo Pedido</button>
     </div>
 </div>
@@ -138,7 +138,6 @@
 <script>
     let submitted = false;
 
-    // Organização Market-Oriented (Por Categorias)
     const catalogo = [
         {
             categoria: "Bebidas Geladas",
@@ -146,23 +145,23 @@
                 { id: 'entry.1882604380', name: 'Antarctica', price: 4.00 },
                 { id: 'entry.655204891', name: 'Brahma', price: 4.00 },
                 { id: 'entry.923078371', name: 'Coca-Cola', price: 4.00 },
-                { id: 'entry.guarana_id', name: 'Guaraná Antarctica', price: 4.00 } // Troque guarana_id
+                { id: 'entry.guarana_id', name: 'Guaraná Antarctica', price: 4.00 } // Atualize com o id real
             ]
         },
         {
             categoria: "Doces & Refresh",
             itens: [
-                { id: 'entry.toddynho_id', name: 'Toddynho', price: 2.00 }, // Troque toddynho_id
-                { id: 'entry.suco_id', name: 'Suco Natural', price: 2.50 }, // Troque suco_id
-                { id: 'entry.picole_id', name: 'Picolé Gourmet', price: 3.00 } // Troque picole_id
+                { id: 'entry.toddynho_id', name: 'Toddynho', price: 2.00 }, // Atualize com o id real
+                { id: 'entry.suco_id', name: 'Suco Natural', price: 2.50 }, // Atualize com o id real
+                { id: 'entry.picole_id', name: 'Picolé Gourmet', price: 3.00 } // Atualize com o id real
             ]
         },
         {
-            categoria: "Estética Hair (Pomadas)",
+            categoria: "Estética Hair (Pomadas R$ 20,00)",
             itens: [
-                { id: 'entry.pomada_black_id', name: 'Pomada Black', price: 20.00 }, // Troque pomada_black_id
-                { id: 'entry.pomada_morango_id', name: 'Pomada Morango', price: 20.00 }, // Troque pomada_morango_id
-                { id: 'entry.pomada_uva_id', name: 'Pomada Uva', price: 20.00 } // Troque pomada_uva_id
+                { id: 'entry.pomada_black_id', name: 'Pomada Black', price: 20.00 }, // Atualize com o id real
+                { id: 'entry.pomada_morango_id', name: 'Pomada Morango', price: 20.00 }, // Atualize com o id real
+                { id: 'entry.pomada_uva_id', name: 'Pomada Uva', price: 20.00 } // Atualize com o id real
             ]
         }
     ];
@@ -171,10 +170,9 @@
     let allProductsFlat = [];
     let globalIndex = 0;
 
-    // Renderiza as seções e o grid de 2 colunas perfeitamente para celular
+    // Construtor do Catálogo Inteligente
     catalogo.forEach(sec => {
         let sectionHtml = `<div class="category-title">${sec.categoria}</div><div class="product-grid">`;
-        
         sec.itens.forEach(prod => {
             allProductsFlat.push(prod);
             sectionHtml += `
@@ -196,6 +194,7 @@
         container.insertAdjacentHTML('beforeend', sectionHtml);
     });
 
+    // Função de Controle de Quantidades
     function updateQty(index, val) {
         const input = document.getElementById(`input-${index}`);
         const card = document.getElementById(`card-${index}`);
@@ -204,7 +203,6 @@
         
         if(updated >= 0) {
             input.value = updated;
-            // Efeito visual de produto selecionado
             if(updated > 0) card.classList.add('active');
             else card.classList.remove('active');
             calcTotal();
@@ -217,6 +215,28 @@
             sum += parseInt(document.getElementById(`input-${i}`).value) * prod.price;
         });
         document.getElementById('totalDisplay').innerText = `R$ ${sum.toFixed(2).replace('.', ',')}`;
+    }
+
+    // Máscara de digitação em tempo real para o WhatsApp do cliente
+    document.getElementById('whatsappInput').addEventListener('input', function (e) {
+        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+
+    // Validação de segurança pré-envio
+    function validarEEnviar(event) {
+        let sum = 0;
+        allProductsFlat.forEach((prod, i) => {
+            sum += parseInt(document.getElementById(`input-${i}`).value);
+        });
+
+        if (sum === 0) {
+            event.preventDefault(); // Cancela o envio
+            alert("Selecione pelo menos 1 item antes de finalizar!");
+            return;
+        }
+        
+        submitted = true; // Ativa o gatilho para mostrar o modal de sucesso quando o iframe carregar
     }
 
     function showSuccess() { document.getElementById('successModal').style.display = 'flex'; }
