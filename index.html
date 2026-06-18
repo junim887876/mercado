@@ -1,169 +1,295 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Black Concierge | Menu Executivo</title>
+    <title>Black Concierge | Menu VIP</title>
     <style>
         :root {
-            --bg-main: #000000; --bg-card: #121214; --bg-input: #1c1c1f;
-            --gold: #d4af37; --text-white: #ffffff; --text-muted: #a1a1aa; --border-subtle: #27272a;
+            --bg-main: #000000;
+            --bg-card: #121214;
+            --bg-input: #1c1c1f;
+            --gold: #d4af37;
+            --text-white: #ffffff;
+            --text-muted: #a1a1aa;
+            --border-subtle: #27272a;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+
         body { background-color: var(--bg-main); color: var(--text-white); display: flex; justify-content: center; }
-        .app-container { width: 100%; max-width: 480px; min-height: 100vh; position: relative; padding-bottom: 120px; }
-        header { padding: 20px; text-align: center; background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0) 100%); }
-        header h1 { font-size: 20px; font-weight: 800; text-transform: uppercase; color: var(--gold); }
-        header p { font-size: 12px; color: var(--text-muted); }
+
+        .app-container { width: 100%; max-width: 480px; min-height: 100vh; position: relative; padding-bottom: 120px; background: var(--bg-main); }
+
+        /* Header Premium */
+        header { padding: 25px 20px 15px 20px; text-align: center; background: linear-gradient(180deg, rgba(212,175,55,0.15) 0%, rgba(0,0,0,0) 100%); }
+        header h1 { font-size: 22px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
+        header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; letter-spacing: 1px; }
+
+        /* Anúncio Inteligente e Integrado */
         .ad-container { padding: 0 20px; margin-bottom: 20px; }
-        .promo-banner { width: 100%; height: 110px; border-radius: 16px; overflow: hidden; position: relative; background: var(--bg-card); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; }
-        .promo-banner img { width: 100%; height: 100%; object-fit: cover; animation: slowZoom 6s infinite alternate; }
-        .ad-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: var(--gold); padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: bold; }
-        @keyframes slowZoom { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+        .promo-banner {
+            width: 100%; height: 110px; border-radius: 16px; overflow: hidden; position: relative;
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+        }
+        .promo-banner img { width: 100%; height: 100%; object-fit: cover; animation: slowZoom 8s infinite alternate; }
+        .ad-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7); color: var(--gold); padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: bold; letter-spacing: 1px; backdrop-filter: blur(4px); border: 1px solid rgba(212,175,55,0.3); }
+        @keyframes slowZoom { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
+
         .content { padding: 0 20px; }
+
+        /* Formulário de Identificação VIP */
         .vip-inputs { display: grid; gap: 12px; margin-bottom: 24px; }
-        .input-box { background: var(--bg-input); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 12px 16px; }
-        .input-box label { font-size: 11px; color: var(--gold); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px; }
+        .input-box { background: var(--bg-input); border-radius: 14px; border: 1px solid var(--border-subtle); padding: 12px 16px; transition: 0.3s; }
+        .input-box label { font-size: 11px; color: var(--gold); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px; }
         .input-box input { width: 100%; background: transparent; border: none; color: var(--text-white); font-size: 15px; outline: none; }
-        .input-box:focus-within { border-color: var(--gold); }
-        .category-title { font-size: 16px; font-weight: 700; color: var(--text-white); margin: 24px 0 12px 0; display: flex; align-items: center; gap: 8px; }
+        .input-box:focus-within { border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.1); }
+
+        /* Categorias de Produtos */
+        .category-title { font-size: 15px; font-weight: 800; color: var(--text-white); margin: 24px 0 12px 0; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; }
         .category-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--gold); border-radius: 4px; }
+        
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .card { background: var(--bg-card); border-radius: 16px; padding: 14px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
-        .card.active { border-color: var(--gold); background: rgba(212,175,55,0.05); }
-        .card-info h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; height: 34px; }
-        .card-info p { font-size: 15px; font-weight: 700; color: var(--gold); }
-        .qty-controls { display: flex; justify-content: space-between; align-items: center; background: var(--bg-input); border-radius: 10px; margin-top: 12px; padding: 4px; }
-        .qty-btn { width: 32px; height: 32px; border: none; background: transparent; color: var(--text-white); font-size: 20px; font-weight: 300; cursor: pointer; border-radius: 8px; }
-        .qty-display { width: 30px; text-align: center; border: none; background: transparent; color: var(--text-white); font-weight: 700; font-size: 16px; pointer-events: none; }
-        .checkout-bar { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: rgba(18,18,20,0.95); backdrop-filter: blur(10px); padding: 16px 20px 24px 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+        
+        .card { background: var(--bg-card); border-radius: 18px; padding: 14px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card.active { border-color: var(--gold); background: rgba(212,175,55,0.03); transform: translateY(-2px); }
+        .card-info h3 { font-size: 14px; font-weight: 600; color: var(--text-white); margin-bottom: 4px; line-height: 1.3; height: 36px; display: flex; align-items: center; }
+        .card-info p { font-size: 15px; font-weight: 800; color: var(--gold); }
+        
+        /* Controles Seletores de Quantidade */
+        .qty-controls { display: flex; justify-content: space-between; align-items: center; background: var(--bg-input); border-radius: 12px; margin-top: 12px; padding: 4px; border: 1px solid transparent; }
+        .card.active .qty-controls { border-color: rgba(212,175,55,0.2); }
+        .qty-btn { width: 34px; height: 34px; border: none; background: transparent; color: var(--text-white); font-size: 22px; font-weight: 400; cursor: pointer; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .qty-btn:active { background: rgba(255,255,255,0.08); }
+        .qty-display { width: 30px; text-align: center; border: none; background: transparent; color: var(--text-white); font-weight: 800; font-size: 16px; pointer-events: none; }
+
+        /* Rodapé Fixo de Checkout */
+        .checkout-bar { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: rgba(18,18,20,0.96); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 16px 20px 24px 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; z-index: 10; box-shadow: 0 -10px 30px rgba(0,0,0,0.8); }
         .checkout-total { display: flex; flex-direction: column; }
-        .checkout-total span { font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
-        .checkout-total strong { font-size: 22px; color: var(--text-white); }
-        .checkout-btn { background: var(--gold); color: black; border: none; padding: 14px 24px; border-radius: 12px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.2); }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: var(--bg-card); border: 1px solid var(--gold); border-radius: 20px; padding: 30px; text-align: center; width: 100%; max-width: 340px; }
-        .modal-content h2 { color: var(--gold); margin-bottom: 8px; font-size: 22px; }
-        .modal-content p { color: var(--text-white); font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
-        .modal-content button { background: var(--text-white); color: black; border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: 700; cursor: pointer; }
+        .checkout-total span { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .checkout-total strong { font-size: 24px; color: var(--text-white); font-weight: 800; }
+        .checkout-btn { background: linear-gradient(135deg, var(--gold) 0%, #b8901c 100%); color: black; border: none; padding: 14px 28px; border-radius: 14px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 20px rgba(212,175,55,0.25); }
+        .checkout-btn:active { transform: scale(0.96); box-shadow: none; }
+
+        /* Modal Transparente de Sucesso */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 100; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--gold); border-radius: 24px; padding: 35px 25px; text-align: center; width: 100%; max-width: 340px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+        .modal-content h2 { color: var(--gold); margin-bottom: 10px; font-size: 22px; font-weight: 800; }
+        .modal-content p { color: var(--text-white); font-size: 14px; margin-bottom: 26px; line-height: 1.6; }
+        .modal-content button { background: var(--text-white); color: black; border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
+        .modal-content button:active { transform: scale(0.97); }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <header><h1>Black Concierge</h1><p>Serviço de Bordo Exclusivo</p></header>
+    <header>
+        <h1>Black Concierge</h1>
+        <p>Atendimento Exclusivo de Bordo</p>
+    </header>
 
     <div class="ad-container">
         <div class="promo-banner">
-            <span class="ad-badge">VIP OFFER</span>
-            <img src="anuncio.jpg" alt="Anúncio" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'ad-badge\'>RESERVADO</span><div style=\'color:var(--gold); font-size:12px; font-weight:bold; letter-spacing:2px;\'>ESPAÇO PUBLICITÁRIO</div>'">
+            <span class="ad-badge">VIP SPECIAL</span>
+            <img src="anuncio.jpg" alt="Anúncio Parceiro" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'ad-badge\'>RESERVADO</span><div style=\'color:var(--gold); font-size:12px; font-weight:bold; letter-spacing:2px;\'>ESPAÇO PUBLICITÁRIO</div>\';">
         </div>
     </div>
 
     <div class="content">
         <div class="vip-inputs">
-            <div class="input-box"><label>Nome Completo</label><input type="text" id="uiNome" placeholder="Seu nome" required></div>
-            <div class="input-box"><label>Endereço de Entrega</label><input type="text" id="uiEnd" placeholder="Local exato" required></div>
-            <div class="input-box"><label>ID Cartão Black</label><input type="text" id="uiCartao" placeholder="Sua credencial" required></div>
-            <div class="input-box"><label>WhatsApp</label><input type="tel" id="uiWhats" placeholder="(00) 00000-0000" maxlength="15" required></div>
+            <div class="input-box">
+                <label>Nome Completo do Cliente</label>
+                <input type="text" id="uiNome" placeholder="Digite seu nome" required>
+            </div>
+            <div class="input-box">
+                <label>WhatsApp Corporativo</label>
+                <input type="tel" id="uiWhats" placeholder="(00) 00000-0000" maxlength="15" required>
+            </div>
+            <div class="input-box">
+                <label>ID do Cartão Black</label>
+                <input type="text" id="uiCartao" placeholder="Ex: BLK-4492" required>
+            </div>
+            <div class="input-box">
+                <label>Endereço de Entrega</label>
+                <input type="text" id="uiEndereco" placeholder="Rua, Número, Apto/Bloco" required>
+            </div>
         </div>
 
         <div id="catalog-container"></div>
 
         <div class="checkout-bar">
-            <div class="checkout-total"><span>Total</span><strong id="totalDisplay">R$ 0,00</strong></div>
-            <button type="button" class="checkout-btn" onclick="processarPedido()">Finalizar</button>
+            <div class="checkout-total">
+                <span>Total Estimado</span>
+                <strong id="totalDisplay">R$ 0,00</strong>
+            </div>
+            <button type="button" class="checkout-btn" onclick="compilarEEnviar()">Finalizar Ordem</button>
         </div>
     </div>
 </div>
 
-<form id="formGoogle" action="https://docs.google.com/forms/d/e/1FAIpQLSe2vJZHdupTEnSoTJiUDQLyaEA4Laa7g0ShZUqRSLdphuvzwQ/formResponse" method="POST" target="hidden_iframe" style="display:none;">
-    <input type="text" name="entry.ID_DO_NOME" id="hiddenNome">
-    <input type="text" name="entry.ID_DO_WHATSAPP" id="hiddenWhats">
-    <input type="text" name="entry.ID_DO_ENDERECO" id="hiddenEnd">
-    <input type="text" name="entry.ID_DO_CARTAO" id="hiddenCartao">
-    <textarea name="entry.ID_DO_PEDIDO" id="hiddenPedido"></textarea>
+<form id="googleFormTransport" action="https://docs.google.com/forms/d/e/1FAIpQLSe2vJZHdupTEnSoTJiUDQLyaEA4Laa7g0ShZUqRSLdphuvzwQ/formResponse" method="POST" target="hidden_iframe" style="display:none;">
+    <input type="text" name="entry.1252470140" id="formDataNome">
+    <input type="text" name="entry.398320415" id="formDataWhats">
+    <textarea name="entry.1882604380" id="formDataPedido"></textarea>
+    <input type="text" name="entry.655204891" id="formDataCartao">
+    <input type="text" name="entry.923078371" id="formDataEndereco">
 </form>
 
 <div class="modal" id="successModal">
     <div class="modal-content">
-        <h2>Ordem Registada</h2>
-        <p>Os seus dados e o pedido completo foram sincronizados com sucesso na nossa base de dados.</p>
-        <button onclick="resetOrder()">Novo Pedido</button>
+        <h2>Solicitação Concluída!</h2>
+        <p>Sua ordem de serviço e dados cadastrais foram injetados com sucesso em nosso banco de dados principal.</p>
+        <button onclick="reiniciarApp()">Novo Pedido</button>
     </div>
 </div>
-<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(typeof submitted !== 'undefined' && submitted) { showSuccess(); }"></iframe>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(typeof submitted !== 'undefined' && submitted) { exibirSucesso(); }"></iframe>
 
 <script>
     let submitted = false;
+
+    // Estrutura de Dados Comercial (Preços Atualizados Conforme Solicitação)
     const catalogo = [
-        { categoria: "Bebidas", itens: [{ name: 'Antarctica', price: 4.00 }, { name: 'Brahma', price: 4.00 }, { name: 'Coca-Cola', price: 4.00 }, { name: 'Guaraná Antarctica', price: 4.00 }] },
-        { categoria: "Refresh", itens: [{ name: 'Toddynho', price: 2.00 }, { name: 'Suco Natural', price: 2.50 }, { name: 'Picolé Gourmet', price: 3.00 }] },
-        { categoria: "Pomadas", itens: [{ name: 'Pomada Black', price: 20.00 }, { name: 'Pomada Morango', price: 20.00 }, { name: 'Pomada Uva', price: 20.00 }] }
+        {
+            categoria: "Bebidas Premium (R$ 4,00)",
+            itens: [
+                { name: 'Cerveja Antarctica', price: 4.00 },
+                { name: 'Cerveja Brahma', price: 4.00 },
+                { name: 'Coca-Cola Zero', price: 4.00 },
+                { name: 'Guaraná Antarctica', price: 4.00 }
+            ]
+        },
+        {
+            categoria: "Doces & Refresh",
+            itens: [
+                { name: 'Toddynho', price: 2.00 },
+                { name: 'Suco Natural', price: 2.50 },
+                { name: 'Picolé Gourmet', price: 3.00 }
+            ]
+        },
+        {
+            categoria: "Estética Hair (Pomadas R$ 20,00)",
+            itens: [
+                { name: 'Pomada Black', price: 20.00 },
+                { name: 'Pomada Morango', price: 20.00 },
+                { name: 'Pomada Uva', price: 20.00 }
+            ]
+        }
     ];
 
     const container = document.getElementById('catalog-container');
-    let allProducts = []; let index = 0;
+    let listaProdutosFlat = [];
+    let globalCounter = 0;
 
-    catalogo.forEach(sec => {
-        let html = `<div class="category-title">${sec.categoria}</div><div class="product-grid">`;
-        sec.itens.forEach(prod => {
-            allProducts.push(prod);
-            html += `<div class="card" id="card-${index}"><div class="card-info"><h3>${prod.name}</h3><p>R$ ${prod.price.toFixed(2).replace('.', ',')}</p></div><div class="qty-controls"><button type="button" class="qty-btn" onclick="upd(${index}, -1)">-</button><input type="number" id="inp-${index}" class="qty-display" value="0" readonly><button type="button" class="qty-btn" onclick="upd(${index}, 1)">+</button></div></div>`;
-            index++;
+    // Loop Construtor de Grid Responsivo (2 Colunas para Dispositivos Móveis)
+    catalogo.forEach(secao => {
+        let html = `<div class="category-title">${secao.categoria}</div><div class="product-grid">`;
+        secao.itens.forEach(item => {
+            listaProdutosFlat.push(item);
+            html += `
+                <div class="card" id="card-${globalCounter}">
+                    <div class="card-info">
+                        <h3>${item.name}</h3>
+                        <p>R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                    </div>
+                    <div class="qty-controls">
+                        <button type="button" class="qty-btn" onclick="alterarQtd(${globalCounter}, -1)">-</button>
+                        <input type="number" id="qty-${globalCounter}" class="qty-display" value="0" readonly>
+                        <button type="button" class="qty-btn" onclick="alterarQtd(${globalCounter}, 1)">+</button>
+                    </div>
+                </div>
+            `;
+            globalCounter++;
         });
-        container.insertAdjacentHTML('beforeend', html + `</div>`);
+        html += `</div>`;
+        container.insertAdjacentHTML('beforeend', html);
     });
 
-    function upd(i, val) {
-        let inp = document.getElementById(`inp-${i}`), card = document.getElementById(`card-${i}`);
-        let n = parseInt(inp.value) + val;
-        if(n >= 0) { inp.value = n; n > 0 ? card.classList.add('active') : card.classList.remove('active'); calcTotal(); }
+    function alterarQtd(idx, delta) {
+        const input = document.getElementById(`qty-${idx}`);
+        const card = document.getElementById(`card-${idx}`);
+        let novaQtd = parseInt(input.value) + delta;
+        
+        if(novaQtd >= 0) {
+            input.value = novaQtd;
+            if(novaQtd > 0) card.classList.add('active');
+            else card.classList.remove('active');
+            atualizarTotal();
+        }
     }
 
-    function calcTotal() {
-        let sum = 0;
-        allProducts.forEach((p, i) => sum += parseInt(document.getElementById(`inp-${i}`).value) * p.price);
-        document.getElementById('totalDisplay').innerText = `R$ ${sum.toFixed(2).replace('.', ',')}`;
-        return sum;
+    function atualizarTotal() {
+        let total = 0;
+        listaProdutosFlat.forEach((item, i) => {
+            total += parseInt(document.getElementById(`qty-${i}`).value) * item.price;
+        });
+        document.getElementById('totalDisplay').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        return total;
     }
 
-    // Máscara Whatsapp
-    document.getElementById('uiWhats').addEventListener('input', function(e) {
-        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    // Algoritmo de Máscara de Telefone Inteligente (Padrão Celular BR)
+    document.getElementById('uiWhats').addEventListener('input', function (e) {
+        let text = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+        e.target.value = !text[2] ? text[1] : '(' + text[1] + ') ' + text[2] + (text[3] ? '-' + text[3] : '');
     });
 
-    function processarPedido() {
-        const nome = document.getElementById('uiNome').value;
-        const whats = document.getElementById('uiWhats').value;
-        const end = document.getElementById('uiEnd').value;
-        const cartao = document.getElementById('uiCartao').value;
-        const total = calcTotal();
+    // Função de Engenharia de Dados Principal
+    function compilarEEnviar() {
+        // Captura de Elementos da UI
+        const nome = document.getElementById('uiNome').value.trim();
+        const whats = document.getElementById('uiWhats').value.trim();
+        const cartao = document.getElementById('uiCartao').value.trim();
+        const endereco = document.getElementById('uiEndereco').value.trim();
+        const valorTotal = atualizarTotal();
 
-        if(!nome || !whats || !end || !cartao) { alert("Preencha todos os dados VIP!"); return; }
-        if(total === 0) { alert("Adicione produtos ao pedido!"); return; }
+        // Validação de segurança de barreira
+        if (!nome || !whats || !cartao || !endereco) {
+            alert("Por favor, preencha todos os campos cadastrais obrigatórios.");
+            return;
+        }
+        if (valorTotal === 0) {
+            alert("Nenhum produto foi selecionado. Adicione itens antes de prosseguir.");
+            return;
+        }
 
-        let resumo = "";
-        allProducts.forEach((p, i) => {
-            let qtd = parseInt(document.getElementById(`inp-${i}`).value);
-            if(qtd > 0) resumo += `${qtd}x ${p.name}\n`;
+        // Compilação Avançada das Quantidades num único Texto Estruturado
+        let payloadPedido = "";
+        listaProdutosFlat.forEach((item, i) => {
+            let qtd = parseInt(document.getElementById(`qty-${i}`).value);
+            if (qtd > 0) {
+                payloadPedido += `• ${qtd}x ${item.name}\n`;
+            }
         });
-        resumo += `\nTOTAL: R$ ${total.toFixed(2).replace('.',',')}`;
+        payloadPedido += `\nVALOR DA COMPRA: R$ ${valorTotal.toFixed(2).replace('.', ',')}`;
 
-        // Transfere tudo para o formulário invisível
-        document.getElementById('hiddenNome').value = nome;
-        document.getElementById('hiddenWhats').value = whats;
-        document.getElementById('hiddenEnd').value = end;
-        document.getElementById('hiddenCartao').value = cartao;
-        document.getElementById('hiddenPedido').value = resumo;
+        // Mapeamento Cirúrgico e Sequencial dos Dados nos IDs de Destino do Google
+        document.getElementById('formDataNome').value = nome;
+        document.getElementById('formDataWhats').value = whats;
+        document.getElementById('formDataPedido').value = payloadPedido; // O pedido consolidado vai para a coluna correta
+        document.getElementById('formDataCartao').value = cartao;
+        document.getElementById('formDataEndereco').value = endereco;
 
+        // Disparo Assíncrono do Pipeline de Dados
         submitted = true;
-        document.getElementById('formGoogle').submit();
+        document.getElementById('googleFormTransport').submit();
     }
 
-    function showSuccess() { document.getElementById('successModal').style.display = 'flex'; }
-    function resetOrder() { location.reload(); }
+    function exibirSucesso() {
+        document.getElementById('successModal').style.display = 'flex';
+    }
+
+    function reiniciarApp() {
+        submitted = false;
+        document.getElementById('successModal').style.display = 'none';
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.qty-display').forEach(i => i.value = 0);
+        document.getElementById('uiNome').value = "";
+        document.getElementById('uiWhats').value = "";
+        document.getElementById('uiCartao').value = "";
+        document.getElementById('uiEndereco').value = "";
+        atualizarTotal();
+    }
 </script>
 </body>
 </html>
