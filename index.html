@@ -85,19 +85,24 @@
 
 <div class="app-container">
     <header>
-        <h1Pdidos Black Barbearia Junim</h1>
+        <h1>Pedidos Black Barbearia Junim</h1>
         <p>Atendimento Exclusivo</p>
     </header>
 
     <div class="ad-container">
         <div class="promo-banner">
             <span class="ad-badge">VIP SPECIAL</span>
-            <img src="anuncio.jpg" alt="Anúncio Parceiro" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'ad-badge\'>RESERVADO</span><div style=\'color:var(--gold); font-size:12px; font-weight:bold; letter-spacing:2px;\'>ESPAÇO PUBLICITÁRIO</div>\';">
+            <img src="anuncio.jpg" alt="Anúncio Parceiro" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'ad-badge\'>RESERVADO</span><div style=\'color:var(--gold); font-size:12px; font-weight:bold; letter-spacing:2px;\'>ESPAÇO PUBLICITÁRIO</div>';">
         </div>
     </div>
 
     <div class="content">
-        <div class="vip-inputs">
+        
+        <div id="btnVoltar" onclick="voltarParaProdutos()" style="display: none; color: var(--gold); text-transform: uppercase; font-size: 12px; margin-bottom: 20px; cursor: pointer; font-weight: 800; letter-spacing: 1px;">
+            &#8592; Voltar aos Produtos
+        </div>
+
+        <div class="vip-inputs" id="telaDados" style="display: none;">
             <div class="input-box">
                 <label>Apelido</label>
                 <input type="text" id="uiNome" placeholder="Digite seu nome" required>
@@ -123,7 +128,7 @@
                 <span>Total Estimado</span>
                 <strong id="totalDisplay">R$ 0,00</strong>
             </div>
-            <button type="button" class="checkout-btn" onclick="compilarEEnviar()">Finalizar Ordem</button>
+            <button type="button" id="btnAcaoPrincipal" class="checkout-btn" onclick="avancarParaDados()">Finalizar Ordem</button>
         </div>
     </div>
 </div>
@@ -234,6 +239,41 @@
         e.target.value = !text[2] ? text[1] : '(' + text[1] + ') ' + text[2] + (text[3] ? '-' + text[3] : '');
     });
 
+    // LÓGICA DE TROCA DE TELAS
+    function avancarParaDados() {
+        const valorTotal = atualizarTotal();
+        
+        if (valorTotal === 0) {
+            alert("Nenhum produto foi selecionado. Adicione itens antes de prosseguir.");
+            return;
+        }
+
+        // Esconde o catálogo de produtos e mostra o formulário de dados
+        document.getElementById('catalog-container').style.display = 'none';
+        document.getElementById('telaDados').style.display = 'grid';
+        document.getElementById('btnVoltar').style.display = 'block';
+
+        // Atualiza a ação do botão na barra inferior
+        const btn = document.getElementById('btnAcaoPrincipal');
+        btn.innerText = "Confirmar Envio";
+        btn.onclick = compilarEEnviar;
+
+        // Rola a tela suavemente para o topo onde estão os inputs
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function voltarParaProdutos() {
+        // Volta a exibir o catálogo de produtos e esconde os dados
+        document.getElementById('catalog-container').style.display = 'block';
+        document.getElementById('telaDados').style.display = 'none';
+        document.getElementById('btnVoltar').style.display = 'none';
+
+        // Restaura a ação original do botão inferior
+        const btn = document.getElementById('btnAcaoPrincipal');
+        btn.innerText = "Finalizar Ordem";
+        btn.onclick = avancarParaDados;
+    }
+
     // Função de Engenharia de Dados Principal
     function compilarEEnviar() {
         // Captura de Elementos da UI
@@ -246,10 +286,6 @@
         // Validação de segurança de barreira
         if (!nome || !whats || !cartao || !endereco) {
             alert("Por favor, preencha todos os campos obrigatórios.");
-            return;
-        }
-        if (valorTotal === 0) {
-            alert("Nenhum produto foi selecionado. Adicione itens antes de prosseguir.");
             return;
         }
 
@@ -266,7 +302,7 @@
         // Mapeamento Cirúrgico e Sequencial dos Dados nos IDs de Destino do Google
         document.getElementById('formDataNome').value = nome;
         document.getElementById('formDataWhats').value = whats;
-        document.getElementById('formDataPedido').value = payloadPedido; // O pedido consolidado vai para a coluna correta
+        document.getElementById('formDataPedido').value = payloadPedido; 
         document.getElementById('formDataCartao').value = cartao;
         document.getElementById('formDataEndereco').value = endereco;
 
@@ -289,6 +325,7 @@
         document.getElementById('uiCartao').value = "";
         document.getElementById('uiEndereco').value = "";
         atualizarTotal();
+        voltarParaProdutos(); // Garante que a tela sempre volte para o modo catálogo num novo pedido
     }
 </script>
 </body>
