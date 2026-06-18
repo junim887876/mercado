@@ -2,353 +2,134 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Black Concierge | Menu Executivo</title>
     <style>
         :root {
-            --bg-main: #09090b;
-            --bg-card: #141416;
+            --bg-main: #000000;
+            --bg-card: #121214;
+            --bg-input: #1c1c1f;
             --gold: #d4af37;
-            --gold-hover: #f3e5ab;
-            --text-white: #f4f4f5;
-            --text-muted: #71717a;
-            --border: #27272a;
+            --text-white: #ffffff;
+            --text-muted: #a1a1aa;
+            --border-subtle: #27272a;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-white);
-            display: flex;
-            justify-content: center;
-            padding: 0;
-            min-height: 100vh;
-        }
+        body { background-color: var(--bg-main); color: var(--text-white); display: flex; justify-content: center; }
 
-        .app-container {
-            width: 100%;
-            max-width: 480px; /* Perfeito para Mobile e Tablet */
-            background-color: var(--bg-card);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            border-left: 1px solid var(--border);
-            border-right: 1px solid var(--border);
-        }
+        .app-container { width: 100%; max-width: 480px; min-height: 100vh; position: relative; padding-bottom: 100px; background: var(--bg-main); }
 
-        /* Banner de Anúncio Rotativo Premium */
+        /* Header Premium */
+        header { padding: 20px; text-align: center; background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0) 100%); }
+        header h1 { font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
+        header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+        /* Anúncio Estratégico (Não-intrusivo, parece uma oferta VIP) */
+        .ad-container { padding: 0 20px; margin-bottom: 20px; }
         .promo-banner {
-            width: 100%;
-            height: 140px;
-            overflow: hidden;
-            position: relative;
-            background: #000;
-            border-bottom: 2px solid var(--gold);
+            width: 100%; height: 110px; border-radius: 16px; overflow: hidden; position: relative;
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
         }
+        .promo-banner img { width: 100%; height: 100%; object-fit: cover; animation: slowZoom 6s infinite alternate; }
+        .ad-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: var(--gold); padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: bold; letter-spacing: 1px; backdrop-filter: blur(4px); }
+        @keyframes slowZoom { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
 
-        .promo-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            animation: pulseBanner 4s infinite alternate;
-        }
+        .content { padding: 0 20px; }
 
-        @keyframes pulseBanner {
-            0% { transform: scale(1.0); filter: brightness(0.9); }
-            100% { transform: scale(1.03); filter: brightness(1.1); }
-        }
+        /* Dados do Cliente */
+        .vip-inputs { display: grid; gap: 12px; margin-bottom: 24px; }
+        .input-box { background: var(--bg-input); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 12px 16px; }
+        .input-box label { font-size: 11px; color: var(--gold); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px; }
+        .input-box input { width: 100%; background: transparent; border: none; color: var(--text-white); font-size: 15px; outline: none; }
+        .input-box:focus-within { border-color: var(--gold); }
 
-        .content {
-            padding: 20px;
-            flex-grow: 1;
-            padding-bottom: 180px; /* Espaço para o carrinho fixo */
-        }
+        /* Categorias & Grid de Produtos */
+        .category-title { font-size: 16px; font-weight: 700; color: var(--text-white); margin: 24px 0 12px 0; display: flex; align-items: center; gap: 8px; }
+        .category-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--gold); border-radius: 4px; }
+        
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        
+        .card { background: var(--bg-card); border-radius: 16px; padding: 14px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
+        .card.active { border-color: var(--gold); background: rgba(212,175,55,0.05); }
+        .card-info h3 { font-size: 14px; font-weight: 600; color: var(--text-white); margin-bottom: 4px; line-height: 1.2; height: 34px; }
+        .card-info p { font-size: 15px; font-weight: 700; color: var(--gold); }
+        
+        /* Controles de Quantidade Superiores para Celular */
+        .qty-controls { display: flex; justify-content: space-between; align-items: center; background: var(--bg-input); border-radius: 10px; margin-top: 12px; padding: 4px; }
+        .qty-btn { width: 32px; height: 32px; border: none; background: transparent; color: var(--text-white); font-size: 20px; font-weight: 300; cursor: pointer; border-radius: 8px; }
+        .qty-btn:active { background: rgba(255,255,255,0.1); }
+        .qty-display { width: 30px; text-align: center; border: none; background: transparent; color: var(--text-white); font-weight: 700; font-size: 16px; pointer-events: none; }
 
-        header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
+        /* Checkout Fixado Embaixo */
+        .checkout-bar { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: rgba(18,18,20,0.95); backdrop-filter: blur(10px); padding: 16px 20px 24px 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+        .checkout-total { display: flex; flex-direction: column; }
+        .checkout-total span { font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
+        .checkout-total strong { font-size: 22px; color: var(--text-white); }
+        .checkout-btn { background: var(--gold); color: black; border: none; padding: 14px 24px; border-radius: 12px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(212,175,55,0.2); }
+        .checkout-btn:active { transform: scale(0.95); }
 
-        header h1 {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: var(--text-white);
-        }
-
-        header p {
-            font-size: 13px;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-top: 4px;
-        }
-
-        /* Seção VIP de Inputs */
-        .vip-section {
-            background: rgba(212, 175, 55, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 24px;
-        }
-
-        .input-group {
-            margin-bottom: 14px;
-        }
-
-        .input-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gold);
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-
-        .input-group input {
-            width: 100%;
-            background: #000;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px 14px;
-            color: white;
-            font-size: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
-        }
-
-        /* Grid de Produtos Estilo Menu */
-        .menu-title {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .item-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .item-details h3 {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--text-white);
-        }
-
-        .item-details p {
-            font-size: 14px;
-            color: var(--gold);
-            margin-top: 2px;
-            font-weight: 600;
-        }
-
-        /* Controles do Contador Modificado para Dedos no Mobile */
-        .counter-control {
-            display: flex;
-            align-items: center;
-            background: #000;
-            border: 1px solid var(--border);
-            border-radius: 25px;
-            padding: 2px;
-        }
-
-        .counter-control button {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: none;
-            background: transparent;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .counter-control button:active {
-            background: var(--border);
-        }
-
-        .counter-control input {
-            width: 35px;
-            text-align: center;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            pointer-events: none;
-        }
-
-        /* Checkout Fixo Inferior */
-        .footer-checkout {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            max-width: 480px;
-            background: linear-gradient(to top, #09090b 80%, rgba(9,9,11,0.9));
-            padding: 20px;
-            border-top: 1px solid var(--border);
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.7);
-        }
-
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .total-row span {
-            font-size: 14px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .total-row .price {
-            font-size: 24px;
-            color: var(--text-white);
-            font-weight: 700;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, var(--gold) 0%, #b8901c 100%);
-            color: #000;
-            border: none;
-            border-radius: 12px;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .submit-btn:active {
-            transform: scale(0.98);
-            box-shadow: none;
-        }
-
-        /* Modal de Sucesso Customizado */
-        .success-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-box {
-            background: var(--bg-card);
-            border: 1px solid var(--gold);
-            border-radius: 20px;
-            padding: 40px 20px;
-            text-align: center;
-            max-width: 360px;
-            width: 100%;
-        }
-
-        .modal-box h2 {
-            color: var(--gold);
-            margin-bottom: 10px;
-        }
-
-        .modal-box p {
-            color: var(--text-white);
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .modal-box button {
-            background: var(--text-white);
-            color: #000;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        /* Modal de Confirmação */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--gold); border-radius: 20px; padding: 30px; text-align: center; width: 100%; max-width: 340px; }
+        .modal-content h2 { color: var(--gold); margin-bottom: 8px; font-size: 22px; }
+        .modal-content p { color: var(--text-white); font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
+        .modal-content button { background: var(--text-white); color: black; border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    
-    <div class="promo-banner">
-        <img src="anuncio.jpg" alt="Anúncio Especial" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'color:var(--gold); padding:60px 0; text-align:center; font-size:12px; letter-spacing:2px;\'>BLACK CONCIERGE PRIVÉ</div>'">
+    <header>
+        <h1>Black Concierge</h1>
+        <p>Serviço de Bordo Exclusivo</p>
+    </header>
+
+    <!-- Anúncio Estratégico (Topo, Estilo App de Delivery) -->
+    <div class="ad-container">
+        <div class="promo-banner">
+            <span class="ad-badge">VIP OFFER</span>
+            <!-- Apenas jogue o arquivo anuncio.jpg na mesma pasta -->
+            <img src="anuncio.jpg" alt="Anúncio Parceiro" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'ad-badge\'>RESERVADO</span><div style=\'color:var(--gold); font-size:12px; font-weight:bold; letter-spacing:2px;\'>ESPAÇO PUBLICITÁRIO</div>'">
+        </div>
     </div>
 
     <div class="content">
-        <header>
-            <h1>SOLICITAÇÃO DE RESERVA</h1>
-            <p>Atendimento Exclusivo</p>
-        </header>
-
         <form action="https://docs.google.com/forms/d/e/1FAIpQLSe2vJZHdupTEnSoTJiUDQLyaEA4Laa7g0ShZUqRSLdphuvzwQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
             
-            <div class="vip-section">
-                <div class="input-group">
+            <div class="vip-inputs">
+                <div class="input-box">
                     <label>Endereço de Entrega</label>
-                    <input type="text" name="entry.1252470140" placeholder="Rua, Número, Bloco/Apto" required>
+                    <input type="text" name="entry.1252470140" placeholder="Insira o local exato" required>
                 </div>
-                <div class="input-group">
-                    <label>ID do Cartão Black</label>
-                    <input type="text" name="entry.398320415" placeholder="Ex: BLK-8892-XP" required>
+                <div class="input-box">
+                    <label>ID Cartão Black</label>
+                    <input type="text" name="entry.398320415" placeholder="Sua credencial" required>
                 </div>
             </div>
 
-            <h2 class="menu-title">Bebidas e Produtos</h2>
-            <div id="menu-items">
-                </div>
+            <!-- Injeção Dinâmica dos Produtos Via JS -->
+            <div id="catalog-container"></div>
 
-            <div class="footer-checkout">
-                <div class="total-row">
-                    <span>Valor Total</span>
-                    <div class="price" id="totalDisplay">R$ 0,00</div>
+            <div class="checkout-bar">
+                <div class="checkout-total">
+                    <span>Total do Pedido</span>
+                    <strong id="totalDisplay">R$ 0,00</strong>
                 </div>
-                <button type="submit" class="submit-btn">Confirmar Pedido</button>
+                <button type="submit" class="checkout-btn">Finalizar</button>
             </div>
         </form>
     </div>
 </div>
 
-<div class="success-modal" id="successModal">
-    <div class="modal-box">
-        <h2>Pedido Transmitido!</h2>
-        <p>Seus dados e quantidades foram processados e enviados diretamente para a nossa central.</p>
-        <button onclick="resetApp()">Novo Pedido</button>
+<!-- Modal de Sucesso -->
+<div class="modal" id="successModal">
+    <div class="modal-content">
+        <h2>Ordem Recebida</h2>
+        <p>Seu pedido foi transmitido com sucesso para a central de atendimento Black Concierge.</p>
+        <button onclick="resetOrder()">Novo Pedido</button>
     </div>
 </div>
 
@@ -357,67 +138,95 @@
 <script>
     let submitted = false;
 
-    // Definição meticulosa dos itens, preços e seus respectivos IDs fornecidos no seu link
-    const produtos = [
-        { id: 'entry.1882604380', name: 'Cerveja Antarctica', price: 4.00 },
-        { id: 'entry.655204891', name: 'Cerveja Brahma', price: 4.00 },
-        { id: 'entry.923078371', name: 'Coca-Cola', price: 4.00 },
-        // Substitua os names abaixo pelos ids reais dos outros itens se necessário
-        { id: 'entry.guarana_id', name: 'Guaraná Antarctica', price: 4.00 },
-        { id: 'entry.toddynho_id', name: 'Toddynho', price: 2.00 },
-        { id: 'entry.picole_id', name: 'Picolé Gourmet', price: 3.00 },
-        { id: 'entry.suco_id', name: 'Suco Natural', price: 2.50 },
-        { id: 'entry.pomada_id', name: 'Pomada Modeladora', price: 25.00 } // Valor sugestivo da pomada
+    // Organização Market-Oriented (Por Categorias)
+    const catalogo = [
+        {
+            categoria: "Bebidas Geladas",
+            itens: [
+                { id: 'entry.1882604380', name: 'Antarctica', price: 4.00 },
+                { id: 'entry.655204891', name: 'Brahma', price: 4.00 },
+                { id: 'entry.923078371', name: 'Coca-Cola', price: 4.00 },
+                { id: 'entry.guarana_id', name: 'Guaraná Antarctica', price: 4.00 } // Troque guarana_id
+            ]
+        },
+        {
+            categoria: "Doces & Refresh",
+            itens: [
+                { id: 'entry.toddynho_id', name: 'Toddynho', price: 2.00 }, // Troque toddynho_id
+                { id: 'entry.suco_id', name: 'Suco Natural', price: 2.50 }, // Troque suco_id
+                { id: 'entry.picole_id', name: 'Picolé Gourmet', price: 3.00 } // Troque picole_id
+            ]
+        },
+        {
+            categoria: "Estética Hair (Pomadas)",
+            itens: [
+                { id: 'entry.pomada_black_id', name: 'Pomada Black', price: 20.00 }, // Troque pomada_black_id
+                { id: 'entry.pomada_morango_id', name: 'Pomada Morango', price: 20.00 }, // Troque pomada_morango_id
+                { id: 'entry.pomada_uva_id', name: 'Pomada Uva', price: 20.00 } // Troque pomada_uva_id
+            ]
+        }
     ];
 
-    const container = document.getElementById('menu-items');
+    const container = document.getElementById('catalog-container');
+    let allProductsFlat = [];
+    let globalIndex = 0;
 
-    // Renderiza a lista na interface de forma limpa
-    produtos.forEach((prod, index) => {
-        const itemHtml = `
-            <div class="item-card">
-                <div class="item-details">
-                    <h3>${prod.name}</h3>
-                    <p>R$ ${prod.price.toFixed(2).replace('.', ',')}</p>
+    // Renderiza as seções e o grid de 2 colunas perfeitamente para celular
+    catalogo.forEach(sec => {
+        let sectionHtml = `<div class="category-title">${sec.categoria}</div><div class="product-grid">`;
+        
+        sec.itens.forEach(prod => {
+            allProductsFlat.push(prod);
+            sectionHtml += `
+                <div class="card" id="card-${globalIndex}">
+                    <div class="card-info">
+                        <h3>${prod.name}</h3>
+                        <p>R$ ${prod.price.toFixed(2).replace('.', ',')}</p>
+                    </div>
+                    <div class="qty-controls">
+                        <button type="button" class="qty-btn" onclick="updateQty(${globalIndex}, -1)">-</button>
+                        <input type="number" name="${prod.id}" id="input-${globalIndex}" class="qty-display" value="0" readonly>
+                        <button type="button" class="qty-btn" onclick="updateQty(${globalIndex}, 1)">+</button>
+                    </div>
                 </div>
-                <div class="counter-control">
-                    <button type="button" onclick="alterarQuantidade(${index}, -1)">-</button>
-                    <input type="number" name="${prod.id}" id="prod-${index}" value="0" readonly>
-                    <button type="button" onclick="alterarQuantidade(${index}, 1)">+</button>
-                </div>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', itemHtml);
+            `;
+            globalIndex++;
+        });
+        sectionHtml += `</div>`;
+        container.insertAdjacentHTML('beforeend', sectionHtml);
     });
 
-    function alterarQuantidade(index, valor) {
-        const input = document.getElementById(`prod-${index}`);
-        let atual = parseInt(input.value);
-        let novo = atual + valor;
-        if(novo >= 0) {
-            input.value = novo;
-            calcularTotal();
+    function updateQty(index, val) {
+        const input = document.getElementById(`input-${index}`);
+        const card = document.getElementById(`card-${index}`);
+        let current = parseInt(input.value);
+        let updated = current + val;
+        
+        if(updated >= 0) {
+            input.value = updated;
+            // Efeito visual de produto selecionado
+            if(updated > 0) card.classList.add('active');
+            else card.classList.remove('active');
+            calcTotal();
         }
     }
 
-    function calcularTotal() {
-        let total = 0;
-        produtos.forEach((prod, index) => {
-            const qtd = parseInt(document.getElementById(`prod-${index}`).value);
-            total += qtd * prod.price;
+    function calcTotal() {
+        let sum = 0;
+        allProductsFlat.forEach((prod, i) => {
+            sum += parseInt(document.getElementById(`input-${i}`).value) * prod.price;
         });
-        document.getElementById('totalDisplay').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        document.getElementById('totalDisplay').innerText = `R$ ${sum.toFixed(2).replace('.', ',')}`;
     }
 
-    function showSuccess() {
-        document.getElementById('successModal').style.display = 'flex';
-    }
+    function showSuccess() { document.getElementById('successModal').style.display = 'flex'; }
 
-    function resetApp() {
+    function resetOrder() {
         submitted = false;
         document.getElementById('successModal').style.display = 'none';
         document.querySelector('form').reset();
-        calcularTotal();
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        calcTotal();
     }
 </script>
 </body>
